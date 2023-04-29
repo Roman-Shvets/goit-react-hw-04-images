@@ -16,6 +16,7 @@ export function App() {
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
 
+  console.log(error);
   useEffect(() => {
     if (name !== '') {
       fetchPictures(name, page);
