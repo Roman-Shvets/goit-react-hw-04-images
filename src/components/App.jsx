@@ -5,6 +5,8 @@ import css from './App.module.css';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = 'https://pixabay.com/api';
 
@@ -16,7 +18,6 @@ export function App() {
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
 
-  console.log(error);
   useEffect(() => {
     if (name !== '') {
       fetchPictures(name, page);
@@ -44,7 +45,9 @@ export function App() {
       );
 
       if (responce.data.hits.length === 0) {
-        return alert('We have not found anything for this search...');
+        return toast.error(
+          'We have nothing to show for this search...  Try another option'
+        );
       }
       setTotal(responce.data.totalHits);
       setPictures(prev => [...prev, ...responce.data.hits]);
@@ -66,6 +69,14 @@ export function App() {
         {totalPage > 1 && !isLoading && pictures.length !== 0 && (
           <Button toVisible={pictures} pageSubmit={buttonPaginateHandler} />
         )}
+
+        {error && (
+          <p>
+            Sorry... We have nothing to show for this search
+            <span>Try another option</span>
+          </p>
+        )}
+        <ToastContainer autoClose={2000} theme="dark" />
       </div>
     </div>
   );

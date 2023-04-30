@@ -38,4 +38,5 @@ Button.propTypes = {
       largeImageURL: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  pageSubmit: PropTypes.func.isRequired,
 };

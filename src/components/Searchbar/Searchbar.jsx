@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Searchbar({ onSubmit }) {
   const [name, setName] = useState('');
@@ -12,8 +14,7 @@ export function Searchbar({ onSubmit }) {
   const handleSubmit = evt => {
     evt.preventDefault();
     if (name.trim() === '') {
-      alert('Please input name for search');
-      return;
+      return toast.error('Please input name for search');
     }
     onSubmit(name);
     setName('');
